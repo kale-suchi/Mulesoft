@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="65d31de2-4fc8-48ff-bfec-cd4fdb6a0209" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="scatter-gather-appFlow" doc:id="524db176-051b-457a-9c8a-eae96d1f1d6d" >
+		<http:listener doc:name="Listener" doc:id="894f023b-0e27-4f07-ac4e-0732c01765a7" config-ref="HTTP_Listener_config" path="/scatter-gather/{id}"/>
+		<set-variable value="#[attributes.uriParams.id]" doc:name="Set Variable" doc:id="e773f10b-6cc3-4033-81da-ebedab612f65" variableName="id"/>
+		<scatter-gather doc:name="Scatter-Gather" doc:id="31d21c60-f627-431e-8624-c04e3617cc54" >
+			<route >
+				<flow-ref doc:name="Flow Reference" doc:id="16ff63da-9000-4f3c-a60e-39bc9436b57b" name="getCustomerByID"/>
+			</route>
+			<route >
+				<flow-ref doc:name="Flow Reference" doc:id="3b725583-bd24-4479-933c-a7fcaa27dddc" name="getInvoiceByIDFlow"/>
+			</route>
+			<route >
+				<flow-ref doc:name="Flow Reference" doc:id="f14b3c6a-fb93-4512-a284-5481a637e78c" name="getItemByID"/>
+			</route>
+			<route >
+				<flow-ref doc:name="Flow Reference" doc:id="9e7e1b77-f0a6-4a17-8e55-480969341b53" name="getProductByID"/>
+			</route>
+		</scatter-gather>
+		<ee:transform doc:name="Transform Message" doc:id="08e99d5e-3346-4b4e-bf25-0061f83e0540" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+flatten(payload...payload)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="bbf78333-11ca-4eab-8bae-4844568731ba" message="#[payload]"/>
+	</flow>
+</mule>

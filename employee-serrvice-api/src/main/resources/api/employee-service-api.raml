@@ -1,0 +1,86 @@
+#%RAML 1.0
+title: Employee - Service - API
+version: 2.0
+baseUri: http://employee-serivce.com/api/{version}
+mediaType:
+- application/json
+
+types:
+  employee:
+       properties:
+        eId: integer
+        eName: string
+        eAge?: integer
+        eRole?: string
+  Error:
+    properties:
+      code: integer
+      message: string
+
+/employee:
+  get:
+    description: List all employess as per matching crietria or retrun all employee
+    queryParameters:
+      eName?: string
+      eRole?: string
+    responses:
+      200:
+        body:
+          application/json:
+            type: employee[]
+            example: !include examples/getOutput.json
+
+  post:
+    description: Create new employee
+    body:
+      application/json:
+        type: employee
+        example: !include examples/postInput.json
+         
+    responses:
+      201:
+        body:
+                application/json:
+                        type: employee
+                        example:
+                            {"eId": 106,"eName": "Suchi Kale"}
+
+/{id}:
+  get:
+    description: Get a employee by id
+    responses:
+      200:
+        body:
+          application/json:
+            type: employee
+            example: !include examples/withoutID.json
+            
+  
+  put:
+      description: Update employee by ID
+      responses:
+        200:
+          body:
+            application/json:
+                type: employee
+                example:
+                    {"eId": 106,"eName": "Suchi Kale"}
+  
+  delete:
+    description: Delete Employee by Id
+    responses:
+      200:
+        body:
+          application/json:
+            type: employee
+            example:
+                    {"eId": 106,"eName": "Suchi Kale"}
+      404:
+        body:
+          application/json:
+            type: Error
+            example:
+              {"message" : "Id is not found","code":1000  }
+
+              
+

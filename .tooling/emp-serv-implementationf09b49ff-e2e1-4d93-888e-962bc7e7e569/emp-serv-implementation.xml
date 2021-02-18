@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="825c9f64-43bd-45fd-9ce2-6a03c8d122fb" >
+		<db:my-sql-connection host="localhost" port="3066" user="root" password="Appu@2901" database="employee-info" />
+	</db:config>
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="13c7aeef-d240-4b1d-b95b-d35f6f5dc039" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="emp-serv-implementationFlow" doc:id="7aee3067-ee22-4b96-85da-bea4938b63dc" >
+		<http:listener doc:name="Listener" doc:id="53f64087-ad09-479a-9697-c04892d23677" config-ref="HTTP_Listener_config" path="/getEmployee"/>
+		<db:select doc:id="f30e2fba-a749-470b-a16b-4701322e9cd9" config-ref="Database_Config">
+			<db:sql ><![CDATA[SELECT * FROM employee;]]></db:sql>
+		</db:select>
+	</flow>
+</mule>

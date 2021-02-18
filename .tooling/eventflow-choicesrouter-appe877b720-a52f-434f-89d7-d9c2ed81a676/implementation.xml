@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:xml-module="http://www.mulesoft.org/schema/mule/xml-module"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/xml-module http://www.mulesoft.org/schema/mule/xml-module/current/mule-xml-module.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="6418780e-eba0-4706-bdda-0a8835027ee7" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration_item" doc:name="HTTP Request configuration" doc:id="338daff7-c780-465f-8a67-a6f457cdd340" basePath="/sqlrest/ITEM" >
+		<http:request-connection host="www.thomas-bayer.com" port="80" />
+	</http:request-config>
+	<http:request-config name="HTTP_Request_configuration_Cust" doc:name="HTTP Request configuration" doc:id="9d2261a7-519a-4346-9ec5-3e9bbf082680" basePath="/sqlrest/CUSTOMER" >
+		<http:request-connection host="www.thomas-bayer.com" port="80" />
+	</http:request-config>
+	<http:request-config name="HTTP_Request_configuration_invoice" doc:name="HTTP Request configuration" doc:id="47dd8ad1-78f5-4ac5-b38d-10e68671a4e3" basePath="/sqlrest/INVOICE" >
+		<http:request-connection host="www.thomas-bayer.com" port="80" />
+	</http:request-config>
+	<http:request-config name="HTTP_Request_configuration_product" doc:name="HTTP Request configuration" doc:id="0e4e38c3-6f7c-4bd5-853b-add9af844f80" basePath="/sqlrest/PRODUCT" >
+		<http:request-connection host="www.thomas-bayer.com" port="80" />
+	</http:request-config>
+	<flow name="getCustomerByID" doc:id="baaf2d37-4c3f-41e4-95de-e9dfe2534f05" >
+		<http:request method="GET" doc:name="Request" doc:id="a3114911-ec1f-4c67-9afc-40a22dcf04ed" config-ref="HTTP_Request_configuration_Cust" path="/{id}">
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"id" : vars.id
+}]]]></http:uri-params>
+		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="bb2abddb-cf37-45d2-a5ea-500462bd278e" message="#[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="88cd7b88-f747-4714-bfe7-44919ea6fc11" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="1a010520-4866-49d0-83dd-364d4cee7b50" message="#[payload]"/>
+	</flow>
+	<flow name="getInvoiceByIDFlow" doc:id="01866f1d-399b-47a6-b804-61b0119dbeda" >
+		<http:request method="GET" doc:name="Request" doc:id="19ee0fd4-50f8-4c37-b833-31ecdf814cea" config-ref="HTTP_Request_configuration_invoice" path="/{id}" >
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"id" : vars.id
+}]]]></http:uri-params>
+		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="eefc6b65-29ad-4d2c-9b7f-fea9e470a753" message="#[payload]" />
+		<ee:transform doc:name="Transform Message" doc:id="1dff473b-3a67-4574-9426-22f7a21ab595" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="4ffab928-535f-44ac-ab69-9c4d6a1f40f5" message="#[payload]" />
+	</flow>
+	<flow name="getItemByID" doc:id="7db39d8f-3e5e-4aee-b7d4-1e8981b057e2" >
+		<http:request method="GET" doc:name="Request" doc:id="8e539a95-affc-4ad2-8379-750525e9b3cc" config-ref="HTTP_Request_configuration_item" path="/{id}" >
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"id" : vars.id
+}]]]></http:uri-params>
+		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="6f8fe325-27bc-4322-ac9c-030899e7ba3f" message="#[payload]" />
+		<ee:transform doc:name="Transform Message" doc:id="47e837eb-e5c6-4f57-a6c3-76b58780b970" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="0c9515c5-836b-4fc0-a754-a11dd511bccc" message="#[payload]" />
+	</flow>
+	<flow name="getProductByID" doc:id="75599723-3f61-492b-ba33-fd9747d41aa6" >
+		<http:request method="GET" doc:name="Request" doc:id="e4bb3965-8c81-4ce3-80ea-e14c5d37f8af" config-ref="HTTP_Request_configuration_item" path="/{id}" >
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"id" : vars.id
+}]]]></http:uri-params>
+		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="7ee9b40f-e081-4a53-803e-696770b2e077" message="#[payload]" />
+		<ee:transform doc:name="Transform Message" doc:id="cb52d892-e43d-41f3-a4ab-73d3f36929b8" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="e260d251-94a1-485b-ad84-87408fc4e04b" message="#[payload]" />
+	</flow>
+</mule>

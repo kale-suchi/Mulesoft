@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jxb:bindings
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+        xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+        xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
+        version="1.0">
+
+    <jxb:globalBindings typesafeEnumMaxMembers="1500" generateMixedExtensions="true">
+        <jxb:serializable uid="1"/>
+        <xjc:javaType adapter="org.mule.module.netsuite.extension.internal.util.DateTimeBinder"
+                      name="java.time.LocalDateTime" xmlType="xsd:dateTime"/>
+    </jxb:globalBindings>
+
+    <!--     ACCOUNT SEARCH BASIC     -->
+    <jxb:bindings schemaLocation="platform.common.xsd">
+        <jxb:bindings node="//xsd:complexType[@name='AccountSearchBasic']//xsd:element[@name='name']">
+            <jxb:property name="acctName"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='AccountSearchBasic']//xsd:element[@name='number']">
+            <jxb:property name="acctNumber"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='AccountSearchBasic']//xsd:element[@name='type']">
+            <jxb:property name="acctType"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='AccountSearchBasic']//xsd:element[@name='generalRateType']">
+            <jxb:property name="generalRate"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='AccountSearchBasic']//xsd:element[@name='cashFlowRateType']">
+            <jxb:property name="cashFlowRate"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='AccountSearchBasic']//xsd:element[@name='subsidiary']">
+            <jxb:property name="subsidiaryList"/>
+        </jxb:bindings>
+    </jxb:bindings>
+    <!--     ACCOUNT SEARCH ROW    BASIC -->
+    <jxb:bindings schemaLocation="platform.common.xsd">
+        <jxb:bindings node="//xsd:complexType[@name='AccountSearchRowBasic']//xsd:element[@name='name']">
+            <jxb:property name="acctName"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='AccountSearchRowBasic']//xsd:element[@name='number']">
+            <jxb:property name="acctNumber"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='AccountSearchRowBasic']//xsd:element[@name='type']">
+            <jxb:property name="acctType"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='AccountSearchRowBasic']//xsd:element[@name='generalRateType']">
+            <jxb:property name="generalRate"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='AccountSearchRowBasic']//xsd:element[@name='cashFlowRateType']">
+            <jxb:property name="cashFlowRate"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='AccountSearchRowBasic']//xsd:element[@name='subsidiary']">
+            <jxb:property name="subsidiaryList"/>
+        </jxb:bindings>
+    </jxb:bindings>
+    <!--     CUSTOMER SEARCH BASIC     -->
+    <jxb:bindings schemaLocation="platform.common.xsd">
+        <jxb:bindings node="//xsd:complexType[@name='CustomerSearchBasic']//xsd:element[@name='address']">
+            <jxb:property name="defaultAddress"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='CustomerSearchBasic']//xsd:element[@name='pricingItem']">
+            <jxb:property name="itemPricingList"/>
+        </jxb:bindings>
+    </jxb:bindings>
+    <!--     CUSTOMER SEARCH ROW BASIC     -->
+    <jxb:bindings schemaLocation="platform.common.xsd">
+        <jxb:bindings node="//xsd:complexType[@name='CustomerSearchRowBasic']//xsd:element[@name='address']">
+            <jxb:property name="defaultAddress"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='CustomerSearchRowBasic']//xsd:element[@name='pricingItem']">
+            <jxb:property name="itemPricingList"/>
+        </jxb:bindings>
+    </jxb:bindings>
+
+    <!-- Adding interfaces to identify stateful response objects. -->
+    <jxb:bindings schemaLocation="platform.core.xsd">
+        <jxb:bindings node="//xsd:complexType[@name='GetDataCenterUrlsResult']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.StatefulResponse
+            </inheritance:implements>
+        </jxb:bindings>
+    </jxb:bindings>
+    <jxb:bindings schemaLocation="platform.messages.xsd">
+        <!-- Session Wrappers. -->
+        <jxb:bindings node="//xsd:complexType[@name='LoginResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.SessionResponseWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='SsoLoginResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.SessionResponseWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='MapSsoResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.SessionResponseWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='ChangePasswordResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.SessionResponseWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='ChangeEmailResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.SessionResponseWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='LogoutResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.SessionResponseWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+
+        <!-- Write Wrappers. -->
+        <jxb:bindings node="//xsd:complexType[@name='AddResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.WriteResponseWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='UpdateResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.WriteResponseWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='UpsertResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.WriteResponseWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='DeleteResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.WriteResponseWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='AttachResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.WriteResponseWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='DetachResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.WriteResponseWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='UpdateInviteeStatusResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.WriteResponseWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+
+        <!-- Write List Wrappers. -->
+        <jxb:bindings node="//xsd:complexType[@name='AddListResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.WriteResponseListWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='UpdateListResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.WriteResponseListWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='UpsertListResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.WriteResponseListWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='DeleteListResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.WriteResponseListWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='UpdateInviteeStatusListResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.WriteResponseListWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+
+        <!-- Read Wrappers -->
+        <jxb:bindings node="//xsd:complexType[@name='GetResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.ReadResponseWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='InitializeResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.ReadResponseWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+
+        <!-- Read List Wrappers -->
+        <jxb:bindings node="//xsd:complexType[@name='GetListResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.ReadResponseListWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='InitializeListResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.ReadResponseListWrapper
+            </inheritance:implements>
+        </jxb:bindings>
+
+        <!-- Marking preferences headers. -->
+        <jxb:bindings node="//xsd:complexType[@name='Preferences']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.PreferencesHeader
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='SearchPreferences']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.PreferencesHeader
+            </inheritance:implements>
+        </jxb:bindings>
+
+        <!-- Stateful Responses. -->
+        <jxb:bindings node="//xsd:complexType[@name='SessionResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.StatefulResponse
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='WriteResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.StatefulResponse
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='ReadResponse']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.StatefulResponse
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='WriteResponseList']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.StatefulResponse
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='ReadResponseList']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.StatefulResponse
+            </inheritance:implements>
+        </jxb:bindings>
+    </jxb:bindings>
+
+    <jxb:bindings schemaLocation="platform.core.xsd">
+        <jxb:bindings node="//xsd:complexType[@name='GetDataCenterUrlsResult']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.StatefulResponse
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='GetServerTimeResult']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.StatefulResponse
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='GetBudgetExchangeRateResult']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.StatefulResponse
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='GetCustomizationIdResult']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.StatefulResponse
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='GetItemAvailabilityResult']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.StatefulResponse
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='GetCurrencyRateResult']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.StatefulResponse
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='GetSavedSearchResult']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.StatefulResponse
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:complexType[@name='SearchResult']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.StatefulResponse
+            </inheritance:implements>
+        </jxb:bindings>
+    </jxb:bindings>
+
+
+    <!-- Adding interface to convert the fault codes to NetSuiteError. -->
+    <jxb:bindings schemaLocation="platform.faultTypes.xsd">
+        <jxb:bindings node="//xsd:simpleType[@name='StatusDetailCodeType']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.NetSuiteErrorType
+            </inheritance:implements>
+        </jxb:bindings>
+        <jxb:bindings node="//xsd:simpleType[@name='FaultCodeType']">
+            <inheritance:implements>
+                org.mule.module.netsuite.extension.internal.model.wrapper.NetSuiteErrorType
+            </inheritance:implements>
+        </jxb:bindings>
+    </jxb:bindings>
+</jxb:bindings>

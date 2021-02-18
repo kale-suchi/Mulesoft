@@ -1,0 +1,5 @@
+authenticated.users=[{"id"\:"7b52bca3-ad78-4130-ab84-705f16ffedac","token"\:"c6489b27-a69e-4ab1-bbe9-7e8704dee9ba","userId"\:"suchikale","email"\:"kale.suchi@gmail.com","refreshToken"\:"","baseUrl"\:"https\://anypoint.mulesoft.com/","org"\:{"name"\:"Digital Thoughts","id"\:"06edc363-cf8d-4a95-afb0-a80523208c8c","isMaster"\:true}}]
+current.token=c6489b27-a69e-4ab1-bbe9-7e8704dee9ba
+current.user=suchikale
+eclipse.preferences.version=1
+org.mule.tooling.ui.properties.enable.api.dependencies=true

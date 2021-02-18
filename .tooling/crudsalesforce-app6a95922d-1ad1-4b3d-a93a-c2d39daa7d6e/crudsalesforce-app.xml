@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:netsuite="http://www.mulesoft.org/schema/mule/netsuite"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="04d22d51-103d-45b5-8781-f2ab21e746de" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="35cc6026-5144-49a1-bd82-0a859c2cd61e" >
+		<salesforce:basic-connection username="${sfdc.username}" password="${sfdc.password}" securityToken="${sfdc.securityToken}" url="https://login.salesforce.com/services/Soap/u/50.0" />
+	</salesforce:sfdc-config>
+	<flow name="crudsalesforce-appFlow" doc:id="273cd707-1493-43af-a2d5-80cc76d7dc16" >
+		<http:listener doc:name="Listener" doc:id="71ed3bd6-0727-4024-a777-0117d371df6d" config-ref="HTTP_Listener_config" path="/getCustomer"/>
+		<salesforce:query doc:name="Query" doc:id="e040fe33-0885-4274-b5a3-6015939a6d3a" />
+	</flow>
+</mule>

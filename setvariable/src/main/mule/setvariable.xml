@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="1c5f48ed-cccb-42e9-b861-9ce51edfd2bb" >
+		<http:listener-connection host="${http.host}" port="${http.port}" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="71a0ac58-0f2e-4bbd-8173-ba100f4cfefe" file="mule.${env}.properties" />
+	<global-property doc:name="Global Property" doc:id="80c87f20-c0fa-4b64-b8e6-dc5b64ee765a" name="env" value="Dev" />
+	<flow name="setvariableFlow" doc:id="e31ab46f-3943-467c-92a6-0922f98edeb3" >
+		<http:listener doc:name="Listener" doc:id="31933e8e-9ad9-4ea0-bb20-3931dd0e0e91" config-ref="HTTP_Listener_config" path="${http.path}"/>
+		<flow-ref doc:name="Flow Reference" doc:id="c538c28d-ebea-4e12-84a5-50e8e0a015c3" name="setvariableSub_Flow"/>
+		<logger level="INFO" doc:name="Logger" doc:id="a6cc1fe7-6734-4744-b2c5-3550a4fc98d8" message='#[vars.mypayload]'/>
+	</flow>
+	<sub-flow name="setvariableSub_Flow" doc:id="c71cfb0a-30f4-4842-a41b-a8b4822b7564" >
+		<set-variable value="suchi" doc:name="firstName" doc:id="0ee3433a-fab1-448d-b014-63816f929392" variableName="firstName" />
+		<set-variable value="Kale" doc:name="lastName" doc:id="816f0dbc-21b7-4f42-8395-15fff55dd5be" variableName="lastName" />
+		<set-variable value="#[payload]" doc:name="myPayload" doc:id="362c78e9-ad75-4997-a8c5-11855611b330" variableName="mypayload" mimeType="application/json" encoding="UTF-8" />
+	</sub-flow>
+</mule>

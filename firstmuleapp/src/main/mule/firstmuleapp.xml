@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="ed3aa590-ae6e-4c94-a842-226471b32a2b" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<flow name="firstmuleappFlow" doc:id="b3069cdb-86e2-417f-aa0e-d1a0bbda6da4" >
+		<http:listener doc:name="Listener" doc:id="2f02b6f4-9c80-4889-bd3a-cdead765190f" config-ref="HTTP_Listener_config" path="/helloworld"/>
+		<set-payload value="Hello, It's Pay load'" doc:name="Set Payload" doc:id="94eb57d9-b871-448c-98b5-a5b4445fefd5" mimeType="application/flatfile" encoding="UTF-8"/>
+		<logger level="INFO" doc:name="Logger" doc:id="b8bbc543-2ff3-48f1-be95-f25efeb54589" message="#[payload]"/>
+	</flow>
+</mule>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="3e932c89-6ec0-4e6f-b126-7f9e61bbcb9f" >
+		<db:my-sql-connection />
+	</db:config>
+	<flow name="deleteEmployeebyIdFlow" doc:id="d4ef44e4-6868-4d14-9e7f-e054f62eae3e" >
+		<http:listener doc:name="Listener" doc:id="dfe110c9-817c-4c3f-ac72-15020eea5b49" config-ref="HTTP_Listener_config" path="/deleteEmployee/{id}"/>
+		<db:delete doc:name="Delete" doc:id="af754fe8-068f-46c3-8430-d71f673f2328" config-ref="Database_Config">
+			<db:sql ><![CDATA[delete from employee where id=:id;]]></db:sql>
+			<db:input-parameters ><![CDATA[{id: attributes.uriParam.id}]]></db:input-parameters>
+		</db:delete>
+		<ee:transform doc:name="Transform Message" doc:id="fe6e8f5a-fc51-44b7-be04-5d2b42289a15" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message" :"Deleted sucessfully"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

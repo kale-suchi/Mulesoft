@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="5c45c6b3-d70c-45d2-bc09-984163481c09" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="file-connector-appFlow" doc:id="5aeb13c0-f1ac-43bb-91c5-ed66e383b819" >
+		<http:listener doc:name="Listener" doc:id="64a633af-2aa4-42c4-9570-3d989885a1d3" config-ref="HTTP_Listener_config" path="/filewrite"/>
+		<ee:transform doc:name="Transform Message" doc:id="be3fd718-20be-42e1-97bf-5d08dde68250" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+	payload
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<file:write doc:name="Write" doc:id="d90ced53-5bdd-41d8-b090-14e21c7cc3b0" path="C:\Users\mihir\AnypointStudio\Mule4Training\file-connector-app\src\main\resources\write"/>
+		<logger level="INFO" doc:name="Logger" doc:id="bb258791-3561-432f-a099-486f244ed5db" message="#[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="d05950e5-ef1c-4272-ad02-dd1576568926" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	message: "The file sucessfully writen"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

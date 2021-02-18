@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="e28a4601-a741-444f-a9f6-3d9515336e48" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<wsc:config name="Web_Service_Consumer_Config" doc:name="Web Service Consumer Config" doc:id="f20f5ae8-e618-4692-a001-66d72ea6e85d" config-ref="Web_Service_Consumer_Config" targetValue="#[payload]" operation="" target="">
+		<wsc:connection wsdlLocation="http://www.dneonline.com/calculator.asmx?wsdl" service="Calculator" port="CalculatorSoap" address="http://www.dneonline.com/calculator.asmx">
+			<wsc:web-service-security actor="http://schemas.xmlsoap.org/soap/actor/next" />
+		</wsc:connection>
+	</wsc:config>
+	<flow name="soapwebservice-appFlow" doc:id="24abe13d-3c55-4619-aa33-d1fd575189c4" >
+		<http:listener doc:name="Listener" doc:id="c8e96c4c-4262-4d98-97f1-ad43c6fd1f88" config-ref="HTTP_Listener_config" path="\calculator"/>
+		<set-variable value="#[attributes.queryParams.intA]" doc:name="Set Variable" doc:id="b016139f-0c56-4e8c-b373-0952112541cd" variableName="intA"/>
+		<set-variable value="#[attributes.queryParams.intB]" doc:name="Set Variable" doc:id="fa84eb94-ea3d-4f89-aede-b518d1cf2658" variableName="intB"/>
+		<ee:transform doc:name="Transform Message" doc:id="534ed6ac-ecd1-4d95-89ec-e876923a95cf" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<wsc:consume doc:id="f20f5ae8-e618-4692-a001-66d72ea6e85d" config-ref="Web_Service_Consumer_Config" operation="Add"/>
+	</flow>
+</mule>
