@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:email="http://www.mulesoft.org/schema/mule/email" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd">
+	<email:smtp-config name="Email_SMTP" doc:name="Email SMTP" doc:id="aa3bf727-8d12-437c-9dda-ae63c80bd33e" >
+		<email:smtp-connection host="${smtp.host}" port="${smtp.port}" user="${smtp.user}" password="${smtp.password}" />
+	</email:smtp-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="931bdc24-3385-4f8d-834c-045307e9258c" file="mule.Dev.properties" />
+	<flow name="file-read-schedule-appFlow" doc:id="a1b7e5ee-d7f9-4970-aad7-4151ce9c5739" >
+		<scheduler doc:name="Scheduler" doc:id="606749b8-022c-4fd8-a1fa-d9aab0860fa2" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="30" timeUnit="SECONDS"/>
+			</scheduling-strategy>
+		</scheduler>
+		<file:read doc:name="Read" doc:id="7432dac4-22ee-4a8c-8cc0-88d489474bb2" path="C:\Users\mihir\AnypointStudio\Mule4Training\file-read-schedule-app\src\main\resources\FileInput\username.csv"/>
+		<ee:transform doc:name="Transform Message" doc:id="0d4359fc-3990-4d3b-b948-f19a5dd047c6" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+
+payload map{
+	Username:$.Username,
+	Identifier: $.Identifier
+	
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<email:send doc:name="Send" doc:id="9c538908-df32-4303-b390-19024a2b923b" config-ref="Email_SMTP" fromAddress="${mail.from}" subject="${mail.subject}">
+			<email:to-addresses >
+				<email:to-address value="${mail.to}" />
+			</email:to-addresses>
+		</email:send>
+		<logger level="INFO" doc:name="Logger" doc:id="374acf31-7323-4bb8-b9b8-f6017ff38b33" message="#[payload]"/>
+	</flow>
+</mule>
