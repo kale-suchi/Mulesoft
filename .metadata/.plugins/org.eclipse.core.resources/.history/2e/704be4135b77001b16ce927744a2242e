@@ -39,7 +39,7 @@
 				<workers>${workers}</workers>
 				<workerType>${workerType}</workerType>
 				<enviornment>${envoirnment}</enviornment>
-				
+				<objectStoreV2>true</objectStoreV2>
 			</cloudHubDeployment>
                     <sharedLibraries>
                         <sharedLibrary>
