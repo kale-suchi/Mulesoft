@@ -29,7 +29,18 @@
 				<artifactId>mule-maven-plugin</artifactId>
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
+				
             <configuration>
+            <cloudHubDeployment>
+                <uri>https://anypoint.mulesoft.com</uri>
+				<server>${server}</server>
+				<muleVersion>${app.runtime}</muleVersion>
+				<applicationName>${app.name}</applicationName>
+				<workers>${workers}</workers>
+				<workerType>${workerType}</workerType>
+				<enviornment>${envoirnment}</enviornment>
+				
+			</cloudHubDeployment>
                     <sharedLibraries>
                         <sharedLibrary>
                             <groupId>com.mycompany</groupId>
