@@ -39,8 +39,7 @@
 				<workers>${workers}</workers>
 				<workerType>${workerType}</workerType>
 				<environment>${environment}</environment>
-				
-				
+						
 			</cloudHubDeployment>
                     <sharedLibraries>
                         <sharedLibrary>
