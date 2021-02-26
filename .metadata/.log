@@ -3334,3 +3334,46 @@ org.apache.maven.model.building.ModelBuildingException: 1 problem was encountere
 	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:154)
 	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:244)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.mule.tooling.maven 1 0 2021-02-26 15:30:29.344
+!MESSAGE  *** 22428 EmbeddedMavenRunner [configuration=MavenPreferences [isDontWarnAgainIfNoInstallationFoundChecked()=false, isGlobalMavenSupportEnabled()=true, getMavenInstallationHome()=, getMavenOpts()=, getDefaultGroupId()=com.mycompany, getBaseCommandline()=mvn clean package -nsu -DskipMunitTests, isDisplayRuntimeVersionWarning()=true, isExternalInstallation()=false]]
+
+!ENTRY org.mule.tooling.maven.ui 4 0 2021-02-26 15:30:29.349
+!MESSAGE There was an error running build on project emp-serv-implementation
+
+!ENTRY org.mule.tooling.core 4 0 2021-02-26 15:30:29.351
+!MESSAGE Unable to find result application jar file
+!STACK 0
+java.lang.RuntimeException
+	at org.mule.tooling.maven.ui.launch.MavenDeploymentStrategy.deployToEmbeddedInstance(MavenDeploymentStrategy.java:111)
+	at org.mule.tooling.runtime.launch.MuleRuntimeProcessLaunchDelegate.deployProjects(MuleRuntimeProcessLaunchDelegate.java:703)
+	at org.mule.tooling.runtime.launch.MuleRuntimeProcessLaunchDelegate.performLegacyDeployment(MuleRuntimeProcessLaunchDelegate.java:373)
+	at org.mule.tooling.runtime.launch.MuleRuntimeProcessLaunchDelegate.launch(MuleRuntimeProcessLaunchDelegate.java:278)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:860)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:719)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1017)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$2.run(DebugUIPlugin.java:1220)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.mule.tooling.maven 1 0 2021-02-26 15:31:17.911
+!MESSAGE  *** 2539 EmbeddedMavenRunner [configuration=MavenPreferences [isDontWarnAgainIfNoInstallationFoundChecked()=false, isGlobalMavenSupportEnabled()=true, getMavenInstallationHome()=, getMavenOpts()=, getDefaultGroupId()=com.mycompany, getBaseCommandline()=mvn clean package -nsu -DskipMunitTests, isDisplayRuntimeVersionWarning()=true, isExternalInstallation()=false]]
+
+!ENTRY org.mule.tooling.maven.ui 4 0 2021-02-26 15:31:17.913
+!MESSAGE There was an error running build on project emp-serv-implementation
+
+!ENTRY org.mule.tooling.core 4 0 2021-02-26 15:31:17.916
+!MESSAGE Unable to find result application jar file
+!STACK 0
+java.lang.RuntimeException
+	at org.mule.tooling.maven.ui.launch.MavenDeploymentStrategy.deployToEmbeddedInstance(MavenDeploymentStrategy.java:111)
+	at org.mule.tooling.runtime.launch.MuleRuntimeProcessLaunchDelegate.deployProjects(MuleRuntimeProcessLaunchDelegate.java:703)
+	at org.mule.tooling.runtime.launch.MuleRuntimeProcessLaunchDelegate.performLegacyDeployment(MuleRuntimeProcessLaunchDelegate.java:373)
+	at org.mule.tooling.runtime.launch.MuleRuntimeProcessLaunchDelegate.launch(MuleRuntimeProcessLaunchDelegate.java:278)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:860)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:719)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1017)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$2.run(DebugUIPlugin.java:1220)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.mule.tooling.maven 1 0 2021-02-26 15:33:55.155
+!MESSAGE  *** 11192 EmbeddedMavenRunner [configuration=MavenPreferences [isDontWarnAgainIfNoInstallationFoundChecked()=false, isGlobalMavenSupportEnabled()=true, getMavenInstallationHome()=, getMavenOpts()=, getDefaultGroupId()=com.mycompany, getBaseCommandline()=mvn clean package -nsu -DskipMunitTests, isDisplayRuntimeVersionWarning()=true, isExternalInstallation()=false]]

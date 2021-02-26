@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.mule.tooling.runtime.muleServerLaunchType">
 <stringAttribute key="launch_mule_server_version" value="org.mule.tooling.server.4.3.0.ee"/>
-<stringAttribute key="mule-agent-port" value="53102"/>
+<stringAttribute key="mule-agent-port" value="49256"/>
 <listAttribute key="mule-project-names">
 <listEntry value="emp-serv-implementation"/>
 </listAttribute>

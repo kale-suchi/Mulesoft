@@ -38,8 +38,7 @@
 				<applicationName>${app.name}</applicationName>
 				<workers>${workers}</workers>
 				<workerType>${workerType}</workerType>
-				<environment>${environment}</environment>
-				
+				<enviornment>${envoirnment}</enviornment>
 				
 			</cloudHubDeployment>
                     <sharedLibraries>
