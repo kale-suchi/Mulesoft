@@ -10,6 +10,11 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: CacheBeta@0
+  inputs:
+    key: $(Build.SourcesDirectory)/pom.xml
+    path: $(MAVEN_CACHE_FOLDER)
+  displayName: Cache Maven local repo
 - task: DownloadSecureFile@1
   displayName: Download secure file
   name: settings
